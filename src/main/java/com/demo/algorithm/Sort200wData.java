@@ -39,7 +39,7 @@ public class Sort200wData {
         long start = System.currentTimeMillis();
         countSort(data,99999);
         long end = System.currentTimeMillis();
-        System.out.println("归并排序的时间为："+(end-start)+" ms");
+        System.out.println("不使用排序的时间为："+(end-start)+" ms");
         fileName0 = "E:\\200w-count.txt";
 
         File file =new File(fileName0);
