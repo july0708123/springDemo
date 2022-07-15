@@ -1,5 +1,8 @@
 package com.demo.algorithm;
 
+/**
+ * 二叉搜索树
+ */
 public class BinaryTreeTest {
 
     /**
