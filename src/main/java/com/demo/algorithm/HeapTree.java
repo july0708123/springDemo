@@ -1,6 +1,8 @@
 package com.demo.algorithm;
 
+import java.io.*;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * 堆树(下标为i的左子节点是2i+1,右子节点是2i+2)
@@ -132,21 +134,93 @@ public class HeapTree {
         return data;
     }
 
-    public static void main(String[] args) {
-        int data[] = {8, 4, 20, 7, 3, 1, 25, 14, 17};
+    public static void main(String[] args) throws IOException {
+//        int data[] = {8, 4, 20, 7, 3, 1, 25, 14, 17};
 //        heapSort(data);
 //        System.out.println(Arrays.toString(data));
 
         // [25, 17, 20, 14, 3, 1, 8, 4, 7]
-        heapData(data);
-        System.out.println(Arrays.toString(data));
+//        heapData(data);
+//        System.out.println(Arrays.toString(data));
 
         //[25, 22, 20, 14, 17, 1, 8, 4, 7, 3]
-        data = insertHeap(data,22);
-        System.out.println(Arrays.toString(data));
+//        data = insertHeap(data,22);
+//        System.out.println(Arrays.toString(data));
 
         // [25, 14, 20, 7, 3, 1, 8, 4]
 //        data = removeHeap(data,1);
 //        System.out.println(Arrays.toString(data));
+
+        //先随机出大概1亿个整数存到文本中
+//        int len = 100000000;
+//        Random random = new Random();
+//        File file =new File("D:\\bignum.txt");
+//        Writer out =new FileWriter(file);
+//        for (int i =0;i<len;i++){
+//            out.write(random.nextInt(len) + "\r\n");
+//        }
+//        out.close();
+        /**
+         * 作业：1亿个数据取top10
+         * 思路：做一个size=10的小顶堆，每次读一个数，去和堆顶数字比较，比堆顶大就替换，然后做一次堆化。
+         * 时间复杂度 O(nlog10) => O(n)  空间复杂度 O(1)
+         * 除了读取文件的时间，堆化的时间忽略不计啊。。。妙啊。
+         * 而且空间只是int[10]
+         */
+        //读取文本数据，和小顶堆的堆顶做比较
+        long start = System.currentTimeMillis();
+        String fileName = "D:\\bignum.txt";
+        InputStreamReader isr = new InputStreamReader(new FileInputStream(fileName));
+        BufferedReader reader = new BufferedReader(isr);
+        int[] arr = new int[10];
+        int s=0;
+        String str = null;
+        int cur = 0;
+        while ((str = reader.readLine()) != null){
+            cur = Integer.valueOf(str);
+            if(cur > arr[0]){
+                arr[0] = cur;
+                int parent = 0;
+                int son = parent*2+1;
+                while (son < 10){
+                    if(son + 1 < 10 && arr[son] > arr[son+1]) son = son + 1;
+                    if(arr[parent] > arr[son]){
+                        //小顶堆，最小的数在堆顶
+                        arr[parent] = arr[parent] + arr[son];
+                        arr[son] = arr[parent] - arr[son];
+                        arr[parent] = arr[parent] - arr[son];
+                        parent = son;
+                        son = parent*2+1;
+                    }else{
+                        break;
+                    }
+                }
+            }
+        }
+        System.out.println("文件读取完毕，top10也取出来啦，用时："+(System.currentTimeMillis()-start)+"ms");
+
+        //将选出来的top10小顶堆排个序~
+        for(int i=9;i>0;i--){
+            //交换
+            arr[0] = arr[0] + arr[i];
+            arr[i] = arr[0] - arr[i];
+            arr[0] = arr[0] - arr[i];
+            //从0到i-1做堆化
+            int parent = 0;
+            int son = parent*2+1;
+            while (son < i){
+                if(son+1 < i && arr[son] > arr[son+1]) son = son+1;
+                if(arr[parent] > arr[son]){
+                    arr[parent] = arr[parent] + arr[son];
+                    arr[son] = arr[parent] - arr[son];
+                    arr[parent] = arr[parent] - arr[son];
+                    parent = son;
+                    son = parent*2+1;
+                }else{
+                    break;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(arr));
     }
 }

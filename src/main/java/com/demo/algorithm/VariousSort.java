@@ -167,7 +167,7 @@ public class VariousSort {
 
 
     /**
-     * 堆排序（二叉树转圈圈。。。）
+     * 堆排序（见堆树 HeapTree）
      */
 
     /**
@@ -216,11 +216,6 @@ public class VariousSort {
         //bubbleSort(data);
         quickSort(data,0,data.length-1);
         //radixSort(data);
-        for(int i=0;i<data.length;i++){
-            System.out.print(data[i]+",");
-            if((i+1)%10 == 0){
-                System.out.println();
-            }
-        }
+        System.out.println(Arrays.toString(data));
     }
 }
