@@ -25,9 +25,10 @@ public class Dijkstra {
      * @param x
      */
     public void shortestPath(int x){
-
+        String[] path = new String[n]; //放最短路径的具体路径
         for(int i=0;i<n;i++){
             dis[i] = graphs[x][i];
+            path[i] = ""+x+"->"+i;
         }
         mark[x] = true;
         //遍历每一个点
@@ -48,10 +49,14 @@ public class Dijkstra {
             for(int k = 0;k<n;k++){
                 if(graphs[loc][k] != -1 && (dis[k] == -1 || dis[k] > dis[loc]+graphs[loc][k])){
                     dis[k] = dis[loc] + graphs[loc][k];
+                    path[k] = path[loc]+"->"+k;
                 }
             }
         }
-
+        //输出结果
+        for(int t=0;t<n;t++){
+            System.out.println(x+"到"+t+"的最短路径长度是："+dis[t]+",具体线路是"+path[t]);
+        }
     }
 
     public static void main(String[] args) {
@@ -65,6 +70,6 @@ public class Dijkstra {
         Dijkstra dijkstra = new Dijkstra(n,dis,mark,graphs);
 
         dijkstra.shortestPath(0);
-        System.out.println(Arrays.toString(dis));
+
     }
 }
