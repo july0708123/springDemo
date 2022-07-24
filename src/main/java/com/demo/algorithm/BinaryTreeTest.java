@@ -173,7 +173,7 @@ public class BinaryTreeTest {
                 }
 
             } else {
-                //节点度为2，找到前驱节点或后继节点提上来（这俩节点肯定是叶子节点）,这里使用后继节点
+                //节点度为2，找到前驱节点或后继节点提上来（这俩节点肯定是度<2的节点）,这里使用后继节点
                 BinaryNode successor = successor(delNode);
                 //开始指针变化
                 //1、先将successor.parent和successor.right相互指定
