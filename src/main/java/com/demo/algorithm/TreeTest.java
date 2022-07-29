@@ -1,5 +1,8 @@
 package com.demo.algorithm;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 public class TreeTest {
 
     /**
@@ -46,13 +49,36 @@ public class TreeTest {
         System.out.println(root.val);
     }
 
+    /**
+     * 层次遍历 (从上到下，从左到右，需要一个辅助队列)
+     * @param root
+     */
+    static void level(TreeNode root){
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        if(root != null){
+            queue.add(root);
+        }
+        while (!queue.isEmpty()){
+            TreeNode node = queue.poll();
+            System.out.println(node.val);
+            if(node.left!= null){
+                queue.add(node.left);
+            }
+            if(node.right!= null){
+                queue.add(node.right);
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        TreeNode t1 = new TreeNode(1,null,null);
-        TreeNode t2 = new TreeNode(3,null,null);
-        TreeNode t3 = new TreeNode(2,t1,t2);
-        TreeNode t4 = new TreeNode(5,null,null);
-        TreeNode t5 = new TreeNode(4,t3,t4);
-        in(t5);
+        TreeNode t1 = new TreeNode(15,null,null);
+        TreeNode t2 = new TreeNode(7,null,null);
+        TreeNode t3 = new TreeNode(20,t1,t2);
+        TreeNode t4 = new TreeNode(9,null,null);
+        TreeNode t5 = new TreeNode(3,t4,t3);
+        //pre(t5);
+        level(t5);
+
     }
 }
 
