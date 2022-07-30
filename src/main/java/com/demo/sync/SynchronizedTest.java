@@ -1,5 +1,8 @@
-package com.demo.thread;
+package com.demo.sync;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class SynchronizedTest {
     static int sum;
     //加在静态方法上，锁住的是整个类
@@ -25,6 +28,6 @@ public class SynchronizedTest {
         t2.start();
         t1.join(); // join():让主线程等待，直到这个线程结束（因为有个while(true)一直在循环）
         t2.join();
-        System.out.println(sum);
+        log.info("{}",sum);
     }
 }
