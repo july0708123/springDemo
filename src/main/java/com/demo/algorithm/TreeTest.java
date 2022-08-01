@@ -2,6 +2,7 @@ package com.demo.algorithm;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
+import java.util.Stack;
 
 public class TreeTest {
 
@@ -32,6 +33,24 @@ public class TreeTest {
         System.out.println(root.val);
         if(root.right != null){
             in(root.right);
+        }
+    }
+
+    /**
+     * 中序遍历
+     * 不使用递归！要使用一个栈来存储节点
+     * @param root
+     */
+    static Stack<TreeNode> stack = new Stack<>();
+    static void inWhile(TreeNode root){
+        while (root != null || !stack.isEmpty()){
+            while (root != null){
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            System.out.println(root.val);
+            root = root.right;
         }
     }
 
@@ -77,8 +96,9 @@ public class TreeTest {
         TreeNode t4 = new TreeNode(9,null,null);
         TreeNode t5 = new TreeNode(3,t4,t3);
         //pre(t5);
-        level(t5);
-
+        //level(t5);
+        inWhile(t5);
+        //in(t5);
     }
 }
 
