@@ -19,7 +19,7 @@ public class Philosopher extends Thread {
     }
 
     public void eat() {
-        log.debug("eating...");
+        log.debug(Thread.currentThread().getName()+"eating...");
         try {
             Thread.sleep(10);
         } catch (InterruptedException e) {
@@ -28,7 +28,7 @@ public class Philosopher extends Thread {
     }
 
     public void think() {
-        log.debug("thinking...");
+        log.debug(Thread.currentThread().getName()+"thinking...");
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -38,22 +38,22 @@ public class Philosopher extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+//        while (true) {
             // 获得左手筷子
             synchronized (left) {
-                log.debug("获得左手筷子" + left.getNumber());
+                log.debug(Thread.currentThread().getName()+"获得左手筷子" + left.getNumber());
                 // 获得右手筷子
                 synchronized (right) {
-                    log.debug("获得右手筷子" + right.getNumber());
+                    log.debug(Thread.currentThread().getName()+"获得右手筷子" + right.getNumber());
                     // 吃饭
                     eat();
                 }
                 // 放下右手筷子
             }
             // 放下左手筷子
-            log.debug("吃完了，把筷子放回了原处，开始thinking");
+            log.debug(Thread.currentThread().getName()+"吃完了，把筷子放回了原处，开始thinking");
             think();
-        }
+//        }
     }
 
     // 思考： 如何用ReentrentLock+Condition实现

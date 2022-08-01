@@ -15,6 +15,7 @@ public class PhilosopherEatTest {
         Chopstick c4 = new Chopstick(4);
         Chopstick c5 = new Chopstick(5);
         // 思考： 如何打破循环
+        // 其中一个哲学家从右边开始拿筷子，其他人从左边开始，这样就打破死锁循环了
         new Philosopher("苏格拉底", c1, c2).start();
         new Philosopher("柏拉图", c2, c3).start();
         new Philosopher("亚里士多德", c3, c4).start();
