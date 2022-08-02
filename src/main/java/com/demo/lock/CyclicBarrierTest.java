@@ -18,7 +18,13 @@ public class CyclicBarrierTest {
 
     public static void main(String[] args) {
 
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(3);
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(3, new Runnable() {
+            @Override
+            public void run() {
+                //如果想汇总，应该把await放到业务逻辑的后边
+                System.out.println("我要汇总，我先执行吗？");
+            }
+        });
 
 
         for (int i = 0; i < 5; i++) {
