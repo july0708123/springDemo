@@ -9,10 +9,6 @@ import java.util.*;
 public class LeetCodeTest {
 
     public static void main(String[] args) {
-        int a = 1;
-        int b = 2;
-        int a2 = 11;
-        int b2 = 22;
         int n = 6279;
         System.out.println(reverseBits(n));
     }
